@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Filters local user related files in Keil project
+/*.ZJL
+Application/Project/*
+Bootloader/Project/*
+!Application/Project/Application.uvprojx
+!Bootloader/Project/Bootloader.uvprojx
