@@ -696,6 +696,11 @@
               <FileType>1</FileType>
               <FilePath>..\Users\Control\src\main.c</FilePath>
             </File>
+            <File>
+              <FileName>start.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Users\Control\src\start.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
