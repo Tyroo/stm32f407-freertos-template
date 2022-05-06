@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Users\Control\inc;..\Users\Drives\inc;..\Library\SysLib\Standard\inc;..\System\FreeRTOS\Core\inc;..\System\FreeRTOS\Ports\RVDS\ARM_CM4F</IncludePath>
+              <IncludePath>..\Users\Control\inc;..\Users\Drives\inc;..\Library\SysLib\Standard\inc;..\System\FreeRTOS\Core\inc;..\System\FreeRTOS\Ports\RVDS\ARM_CM4F;..\Library\ExtLib\IQMathLib\inc;..\Library\ExtLib\Ymodem\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -382,6 +382,18 @@
       <Groups>
         <Group>
           <GroupName>ExtLib</GroupName>
+          <Files>
+            <File>
+              <FileName>IQmathLib.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\Library\ExtLib\IQMathLib\src\IQmathLib.lib</FilePath>
+            </File>
+            <File>
+              <FileName>Ymodem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\Ymodem\src\Ymodem.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>SysLib</GroupName>
