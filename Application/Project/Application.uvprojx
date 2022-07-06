@@ -325,7 +325,7 @@
             <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
-            <uC99>0</uC99>
+            <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>3</v6Lang>
@@ -337,9 +337,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
+              <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER,__TARGET_FPU_VFP,__FPU_PRESENT,ARM_MATH_CM4</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Users\Control\inc;..\Users\Drives\inc;..\Library\SysLib\Standard\inc;..\System\FreeRTOS\Core\inc;..\System\FreeRTOS\Ports\RVDS\ARM_CM4F;..\Library\ExtLib\IQMathLib\inc;..\Library\ExtLib\Ymodem\inc</IncludePath>
+              <IncludePath>..\Library\SysLib\Standard\Configuration;..\Library\SysLib\Standard\Peripheral\inc;..\Library\SysLib\ArmMathLib\inc;..\Library\ExtLib;..\Library\ExtLib\IQMathLib\inc;..\Library\ExtLib\Ymodem\inc;..\Library\ExtLib\LittleVGL;..\System\FreeRTOS\Core\inc;..\System\FreeRTOS\Ports\RVDS\ARM_CM4F;..\Users\Drives\inc;..\Users\Control\Main\inc;..\Users\Control\Gui\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -381,6 +381,21 @@
       </TargetOption>
       <Groups>
         <Group>
+          <GroupName>Core</GroupName>
+          <Files>
+            <File>
+              <FileName>startup_stm32f40_41xxx.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\Library\SysLib\Standard\Startup\startup_stm32f40_41xxx.s</FilePath>
+            </File>
+            <File>
+              <FileName>system_stm32f4xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\SysLib\Standard\Configuration\system_stm32f4xx.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>ExtLib</GroupName>
           <Files>
             <File>
@@ -399,219 +414,224 @@
           <GroupName>SysLib</GroupName>
           <Files>
             <File>
+              <FileName>arm_cortexM4lf_math.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\Library\SysLib\ArmMathLib\src\arm_cortexM4lf_math.lib</FilePath>
+            </File>
+            <File>
               <FileName>misc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\misc.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\misc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_adc.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_adc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_can.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_can.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_can.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_cec.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_cec.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_cec.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_crc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_crc.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_crc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_cryp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_cryp.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_cryp.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_cryp_aes.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_cryp_aes.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_cryp_aes.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_cryp_des.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_cryp_des.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_cryp_des.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_cryp_tdes.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_cryp_tdes.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_cryp_tdes.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_dac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_dac.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_dac.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_dbgmcu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_dbgmcu.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_dbgmcu.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_dcmi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_dcmi.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_dcmi.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_dfsdm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_dfsdm.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_dfsdm.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_dma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_dma.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_dma.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_dma2d.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_dma2d.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_dma2d.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_dsi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_dsi.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_dsi.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_exti.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_exti.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_exti.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_flash.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_flash.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_flash_ramfunc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_flash_ramfunc.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_flash_ramfunc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_fmpi2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_fmpi2c.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_fmpi2c.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_fsmc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_fsmc.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_fsmc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_gpio.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_gpio.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_hash.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_hash.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hash_md5.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_hash_md5.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_hash_md5.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hash_sha1.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_hash_sha1.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_hash_sha1.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_i2c.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_i2c.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_it.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_it.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_it.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_iwdg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_iwdg.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_iwdg.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_lptim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_lptim.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_lptim.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_ltdc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_ltdc.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_ltdc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_pwr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_pwr.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_pwr.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_qspi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_qspi.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_qspi.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_rcc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_rcc.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_rcc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_rng.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_rng.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_rng.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_rtc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_rtc.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_rtc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_sai.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_sai.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_sai.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_sdio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_sdio.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_sdio.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_spdifrx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_spdifrx.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_spdifrx.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_spi.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_spi.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_syscfg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_syscfg.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_syscfg.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_tim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_tim.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_tim.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_usart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_usart.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_usart.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_wwdg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Library\SysLib\Standard\src\stm32f4xx_wwdg.c</FilePath>
+              <FilePath>..\Library\SysLib\Standard\Peripheral\src\stm32f4xx_wwdg.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -676,6 +696,826 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>LittleVGL_Core</GroupName>
+          <Files>
+            <File>
+              <FileName>lv_conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\lv_conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>lv_port_disp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_port_disp.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_port_indev.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_port_indev.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_disp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_disp.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_group.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_group.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_indev.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_indev.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_indev_scroll.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_indev_scroll.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_obj.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_obj.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_obj_class.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_obj_class.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_obj_draw.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_obj_draw.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_obj_pos.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_obj_pos.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_obj_scroll.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_obj_scroll.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_obj_style.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_obj_style.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_obj_style_gen.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_obj_style_gen.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_obj_tree.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_obj_tree.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_refr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_refr.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_theme.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\core\lv_theme.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_draw_arc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\draw\lv_draw_arc.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_draw_blend.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\draw\lv_draw_blend.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_draw_img.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\draw\lv_draw_img.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_draw_label.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\draw\lv_draw_label.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_draw_line.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\draw\lv_draw_line.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_draw_mask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\draw\lv_draw_mask.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_draw_rect.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\draw\lv_draw_rect.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_draw_triangle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\draw\lv_draw_triangle.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_img_buf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\draw\lv_img_buf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_img_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\draw\lv_img_cache.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_img_decoder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\draw\lv_img_decoder.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_extra.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\lv_extra.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_animimg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\animimg\lv_animimg.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_calendar.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\calendar\lv_calendar.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_calendar_header_arrow.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\calendar\lv_calendar_header_arrow.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_calendar_header_dropdown.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\calendar\lv_calendar_header_dropdown.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_chart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\chart\lv_chart.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_colorwheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\colorwheel\lv_colorwheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_imgbtn.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\imgbtn\lv_imgbtn.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_keyboard.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\keyboard\lv_keyboard.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\led\lv_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_list.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\list\lv_list.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_meter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\meter\lv_meter.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_msgbox.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\msgbox\lv_msgbox.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_span.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\span\lv_span.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_spinbox.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\spinbox\lv_spinbox.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_spinner.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\spinner\lv_spinner.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_tabview.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\tabview\lv_tabview.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_tileview.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\tileview\lv_tileview.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_win.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\widgets\win\lv_win.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_theme_basic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\themes\basic\lv_theme_basic.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_theme_default.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\themes\default\lv_theme_default.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_theme_mono.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\themes\mono\lv_theme_mono.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_snapshot.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\others\snapshot\lv_snapshot.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_bmp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\bmp\lv_bmp.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_freetype.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\freetype\lv_freetype.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_fs_fatfs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\fsdrv\lv_fs_fatfs.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_fs_posix.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\fsdrv\lv_fs_posix.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_fs_stdio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\fsdrv\lv_fs_stdio.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_fs_win32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\fsdrv\lv_fs_win32.c</FilePath>
+            </File>
+            <File>
+              <FileName>gifdec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\gif\gifdec.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gif.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\gif\lv_gif.c</FilePath>
+            </File>
+            <File>
+              <FileName>lodepng.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\png\lodepng.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_png.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\png\lv_png.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_qrcode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\qrcode\lv_qrcode.c</FilePath>
+            </File>
+            <File>
+              <FileName>qrcodegen.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\qrcode\qrcodegen.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_rlottie.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\rlottie\lv_rlottie.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_sjpg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\sjpg\lv_sjpg.c</FilePath>
+            </File>
+            <File>
+              <FileName>tjpgd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\libs\sjpg\tjpgd.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_flex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\layouts\flex\lv_flex.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_grid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\extra\layouts\grid\lv_grid.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_dejavu_16_persian_hebrew.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_dejavu_16_persian_hebrew.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_fmt_txt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_fmt_txt.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_loader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_loader.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_8.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_8.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_10.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_10.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_12.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_12.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_12_subpx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_12_subpx.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_14.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_14.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_16.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_16.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_18.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_18.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_20.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_20.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_22.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_22.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_24.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_24.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_26.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_26.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_28.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_28.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_28_compressed.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_28_compressed.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_30.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_30.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_32.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_34.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_34.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_36.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_36.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_38.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_38.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_40.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_40.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_42.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_42.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_44.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_44.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_46.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_46.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_montserrat_48.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_montserrat_48.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_simsun_16_cjk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_simsun_16_cjk.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_unscii_8.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_unscii_8.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_unscii_16.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\font\lv_font_unscii_16.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_nxp_pxp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\lv_gpu_nxp_pxp.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_nxp_pxp_osa.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\lv_gpu_nxp_pxp_osa.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_nxp_vglite.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\lv_gpu_nxp_vglite.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_sdl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\lv_gpu_sdl.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_stm32_dma2d.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\lv_gpu_stm32_dma2d.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_sdl_draw_arc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\sdl\lv_gpu_sdl_draw_arc.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_sdl_draw_blend.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\sdl\lv_gpu_sdl_draw_blend.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_sdl_draw_img.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\sdl\lv_gpu_sdl_draw_img.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_sdl_draw_label.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\sdl\lv_gpu_sdl_draw_label.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_sdl_draw_line.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\sdl\lv_gpu_sdl_draw_line.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_sdl_draw_rect.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\sdl\lv_gpu_sdl_draw_rect.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_sdl_lru.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\sdl\lv_gpu_sdl_lru.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_sdl_mask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\sdl\lv_gpu_sdl_mask.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_sdl_stack_blur.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\sdl\lv_gpu_sdl_stack_blur.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_sdl_texture_cache.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\sdl\lv_gpu_sdl_texture_cache.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gpu_sdl_utils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\gpu\sdl\lv_gpu_sdl_utils.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_hal_disp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\hal\lv_hal_disp.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_hal_indev.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\hal\lv_hal_indev.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_hal_tick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\hal\lv_hal_tick.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_anim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_anim.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_anim_timeline.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_anim_timeline.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_area.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_area.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_async.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_async.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_bidi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_bidi.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_color.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_color.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_fs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_fs.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_gc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_gc.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_ll.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_ll.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_log.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_log.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_mem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_mem.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_style.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_style.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_style_gen.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_style_gen.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_templ.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_templ.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_tlsf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_tlsf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_txt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_txt.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_txt_ap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_txt_ap.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_utils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\misc\lv_utils.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_arc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_arc.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_bar.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_bar.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_btn.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_btn.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_btnmatrix.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_btnmatrix.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_canvas.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_canvas.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_checkbox.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_checkbox.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_dropdown.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_dropdown.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_img.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_img.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_label.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_label.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_line.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_line.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_objx_templ.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_objx_templ.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_roller.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_roller.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_slider.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_slider.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_switch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_switch.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_table.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_table.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_textarea.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\ExtLib\LittleVGL\widgets\lv_textarea.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LittleVGL_App</GroupName>
+          <Files>
+            <File>
+              <FileName>tftlcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Users\Control\Gui\src\tftlcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>tftlcd_conf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Users\Control\Gui\src\tftlcd_conf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_example_win_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Users\Control\Gui\src\lv_example_win_1.c</FilePath>
+            </File>
+            <File>
+              <FileName>ILI9341.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Users\Control\Gui\src\ILI9341.c</FilePath>
+            </File>
+            <File>
+              <FileName>rgb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Users\Control\Gui\src\rgb.c</FilePath>
+            </File>
+            <File>
+              <FileName>xpt2046.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Users\Control\Gui\src\xpt2046.c</FilePath>
+            </File>
+            <File>
+              <FileName>xpt2046.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Users\Control\Gui\inc\xpt2046.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Drives</GroupName>
           <Files>
             <File>
@@ -698,6 +1538,36 @@
               <FileType>1</FileType>
               <FilePath>..\Users\Drives\src\delay.c</FilePath>
             </File>
+            <File>
+              <FileName>fsmc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Users\Drives\src\fsmc.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Users\Drives\src\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Users\Drives\inc\timer.h</FilePath>
+            </File>
+            <File>
+              <FileName>system.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Users\Drives\src\system.c</FilePath>
+            </File>
+            <File>
+              <FileName>at24c02.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Users\Drives\src\at24c02.c</FilePath>
+            </File>
+            <File>
+              <FileName>i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Users\Drives\src\i2c.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -706,20 +1576,17 @@
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Users\Control\src\main.c</FilePath>
+              <FilePath>..\Users\Control\Main\src\main.c</FilePath>
             </File>
             <File>
               <FileName>start.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Users\Control\src\start.c</FilePath>
+              <FilePath>..\Users\Control\Main\src\start.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::Device</GroupName>
         </Group>
       </Groups>
     </Target>
@@ -734,29 +1601,19 @@
           <targetInfo name="Application"/>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS">
-        <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.16.0"/>
-        <targetInfos>
-          <targetInfo name="Application"/>
-        </targetInfos>
-      </component>
     </components>
     <files>
       <file attr="config" category="source" condition="STM32F407xx_ARMCC" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f407xx.s" version="2.6.2">
-        <instance index="0">RTE\Device\STM32F407ZGTx\startup_stm32f407xx.s</instance>
+        <instance index="0" removed="1">RTE\Device\STM32F407ZGTx\startup_stm32f407xx.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS"/>
         <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.16.0"/>
-        <targetInfos>
-          <targetInfo name="Application"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="source" name="Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c" version="2.6.3">
-        <instance index="0">RTE\Device\STM32F407ZGTx\system_stm32f4xx.c</instance>
+        <instance index="0" removed="1">RTE\Device\STM32F407ZGTx\system_stm32f4xx.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="2.6.3" condition="STM32F4 CMSIS"/>
         <package name="STM32F4xx_DFP" schemaVersion="1.7.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.16.0"/>
-        <targetInfos>
-          <targetInfo name="Application"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
     </files>
   </RTE>

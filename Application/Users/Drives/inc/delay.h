@@ -10,9 +10,14 @@
 /**
 *	@define
 **/
-#define DELAY_SYSCLK_HZ     (168000000)						// 系统时钟频率下，1s的计数值
-#define DELAY_ONE_US        (DELAY_SYSCLK_HZ / 1000000)	    // 延时1us计数值
-#define DELAY_ONE_MS        (DELAY_ONE_US * 1000) 	        // 延时1ms计数值
+// 系统时钟频率下，1s的计数值
+#define DELAY_SYSCLK_HZ     (168000000)
+// 延时1us修正值
+#define CORRECT_VALUE       (45)
+// 延时1us计数值
+#define DELAY_ONE_US        ((DELAY_SYSCLK_HZ / 1000000) - CORRECT_VALUE)
+// 延时1ms计数值
+#define DELAY_ONE_MS        (DELAY_ONE_US * 1000) 	        
 
 
 /**

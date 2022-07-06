@@ -115,7 +115,7 @@
 #define configIDLE_SHOULD_YIELD					1           
 
 //启用队列
-#define configUSE_QUEUE_SETS					0    
+#define configUSE_QUEUE_SETS					1    
 
 //开启任务通知功能，默认开启
 #define configUSE_TASK_NOTIFICATIONS            1   
@@ -141,7 +141,7 @@
 //支持动态内存申请
 #define configSUPPORT_DYNAMIC_ALLOCATION        1    
 //支持静态内存
-#define configSUPPORT_STATIC_ALLOCATION					0					
+#define configSUPPORT_STATIC_ALLOCATION			0					
 //系统所有总的堆大小
 #define configTOTAL_HEAP_SIZE					((size_t)(36*1024))    
 

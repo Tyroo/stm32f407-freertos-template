@@ -23,7 +23,7 @@ void Delay_Init(uint32_t Rate)
 void Delay_Us(uint32_t Us) 
 {
 	
-	uint32_t CountValue;
+	uint32_t CountValue = 0;
 	uint32_t CountValueOld, CountValueNew;
 	uint32_t StopCountValue = Us * DELAY_ONE_US;    // 计算出延时Us微秒需要计数的值
 	
@@ -44,9 +44,9 @@ void Delay_Us(uint32_t Us)
 void Delay_Ms(uint32_t Ms) 
 {
 	
-	uint32_t CountValue;
+	uint32_t CountValue = 0;
 	uint32_t CountValueOld, CountValueNew;
-	uint32_t StopCountValue = Ms * DELAY_ONE_MS;    // 计算出延时Us微秒需要计数的值
+	uint32_t StopCountValue = Ms * DELAY_ONE_MS;    // 计算出延时Ms微秒需要计数的值
 	
 	CountValueOld = SysTick->VAL;
 

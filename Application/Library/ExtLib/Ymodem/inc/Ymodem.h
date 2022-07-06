@@ -35,18 +35,26 @@
 ----------------------------------------------------------*/
 
 /* define config block */
-#define Y_PACKET_BLOCK_MAX_SIZE                (0x80)
-#define Y_PACKET_FILE_NAME_MAX_LENGTH          (0x20)
-#define Y_PACKET_FILE_SIZE_MAX_LENGTH          (0x0A)
-#define Y_PACKET_NULL_FRAME                    (0x00)
-#define Y_PACKET_MAX_SIZE                      (Y_PACKET_BLOCK_MAX_SIZE * 8 + 5)
+#define Y_DEBUG_ENABLE                         (1)    // Y
+#define Y_FILE_CONTINUE_TX_MAX_NUM             (5)    // Y
+#define Y_MANAGE_PACKET_RTX_COMPLETE_HOOK      (0)    // Y
 
-#define Y_MANAGE_USE_PACKET_TX_COMPLETE_HOOK   (0)
+#define vYmodemAssert(v)       if (v == 0) vYmodemAssertCall(__FILE__, __LINE__) // Y
+#define vYmodemReadDataByte    ((YUINT32_t)&vYmodemReadData)
+#define vYmodemWriteDataByte   ((YUINT32_t)&vYmodemWriteData)
 
-#define vYmodemAssert(v)    if(v == 0) vYmodemError(__FILE__, __LINE__)
+/* define read-only config block */
+#define Y_PACKET_DATA_MAX_SIZE                 (0x80) // N
+#define Y_PACKET_FILE_NAME_MAX_LENGTH          (0x20) // N
+#define Y_PACKET_NULL_FRAME                    (0x00) // N
+#define Y_PACKET_MAX_SIZE                      (Y_PACKET_BLOCK_MAX_SIZE * 8 + 5) // N
 
 /* define examine block */
-#if ((Y_PACKET_FILE_NAME_MAX_LENGTH + Y_PACKET_FILE_SIZE_MAX_LENGTH) > Y_PACKET_BLOCK_MAX_SIZE)
+#if ((Y_PACKET_FILE_NAME_MAX_LENGTH + Y_PACKET_FILE_SIZE_MAX_LENGTH) > Y_PACKET_DATA_MAX_SIZE)
+  #error ("The file name exceeds the maximum packet length.")
+#endif
+
+#if (!(defined(vYmodemReadDataByte) && defined(vYmodemWriteDataByte)))
   #error ("The file name exceeds the maximum packet length.")
 #endif
 
@@ -62,57 +70,75 @@ typedef unsigned short YUINT16_t;
 typedef unsigned int   YUINT32_t;
 
 /* Packet file information type redefinition */
-typedef struct _stcYPacketFileInfo
+typedef struct _stcYFileInfo
 {
-	FILE     *pFile;
-	YSINT8_t strFileName[Y_PACKET_FILE_NAME_MAX_LENGTH];
-	YSINT8_t strFileSize[Y_PACKET_FILE_SIZE_MAX_LENGTH];
-} stcYPFI_t;
+	void      *pFile;
+	YUINT16_t numFileByteSize;
+} stcYFI_t;
+
+typedef struct _stcYTxFileQueue
+{
+	stcYFI_t  queue[Y_FILE_CONTINUE_TX_MAX_NUM];
+	YSINT8_t  strCurTxFileName[Y_PACKET_FILE_NAME_MAX_LENGTH];
+	YUINT8_t  numCurTxFileQueueIndex;
+	YUINT16_t numCurTxFileSeek;	// Number of byte transferred
+	
+	void (*vEnqueue)(stcYFI_t stcFileInfo);
+	void (*vDequeue)();
+	
+} stcYTFQ_t;
+
+typedef struct _stcYPacketFileData
+{
+	YSINT8_t strFileNameData[Y_PACKET_FILE_NAME_MAX_LENGTH];
+	YSINT8_t strFileSizeData[Y_PACKET_DATA_MAX_SIZE - Y_PACKET_FILE_NAME_MAX_LENGTH];
+} stcTPFD_t;
+
+typedef union _uniYPacketData
+{
+	YSINT8_t  strData[Y_PACKET_DATA_MAX_SIZE];
+	stcTPFD_t strFileData;
+} uniYPFD_t;
 
 /* Packet type redefinition */
 typedef struct _stcYPacket
 {
-	stcYPFI_t stcPacketFileInfo;
-	
-	YSINT8_t *pPacketHeader;
-	YSINT8_t *pPacketOrder;
-	
-	YSINT8_t *pPacketFirstBlock;
-	YSINT8_t *pPacketDataBlock;
-	
-	YSINT8_t *pCRCValue;
+	YUINT8_t pPacketHeader;
+	YUINT8_t pPacketOrder[2];
+	uniYPFD_t pPacketData;
+	YUINT8_t *pCRCValue;
 	
 } stcYPacket_t;
 
-typedef struct _stcYmodemStatus
+typedef struct _stcYStatus
 {
 	YUINT8_t  numState;
 	YUINT8_t  numModel;
-	YUINT16_t numSeek;	// Number of byte transferred
-
-} stcYmodemStatus_t;
+	
+} stcYStatus_t;
 
 /* Communication status type redefined */
 typedef struct _stcYmodemManage
 {
 
-	stcYmodemStatus_t stcState;
-
+	stcYStatus_t stcStatus;
+	
 	stcYPacket_t stcTxPacket;
 	stcYPacket_t stcRxPacket;
 	
-	void (*FirstPacketRxCompleteHook)(void* stcManage, stcYPFI_t* stcFileInfo);
-	void (*DataPacketRxCompleteHook)(void* stcManage);
+	stcYTFQ_t stcTxFileQueue;
+
+	void (*vCommumTxCompleteHook)(void *stcManage);
+	void (*vCommumRxCompleteHook)(void *stcManage);
 	
-	void (*FirstPacketTxCompleteHook)(void* stcManage, stcYPFI_t* stcFileInfo);
-	void (*DataPacketTxCompleteHook)(void* stcManage);
+	void (*vHookBind)(void * const pManage, 
+	                  void (*pCallback)(void*), 
+					  YUINT8_t numToHook);
 	
-	#if (Y_MANAGE_USE_PACKET_TX_COMPLETE_HOOK)
-	  void (*DataPacketRxCompleteBeforeHook)(void* stcManage, YUINT8_t numProgress);
-	  void (*DataPacketTxCompleteBeforeHook)(void* stcManage, YUINT8_t numProgress);
-	#endif
-	
-	void (*HookBind)(void* pCallback);
+#if (Y_MANAGE_PACKET_RTX_COMPLETE_HOOK)
+	void (*vPacketTxCompleteHook)(void *stcManage, const YUINT8_t * const numProgress);
+	void (*vPacketRxCompleteHook)(void *stcManage, const YUINT8_t * const numProgress);
+#endif
 	
 } stcYmodemManage_t;
 
@@ -124,19 +150,19 @@ typedef struct _stcYmodemManage
 /* Packet enumeration type definition */
 enum enPacketHeaderType { enPHT_SOH = 0x01, enPHT_STX };
 enum enStartPacketOrder { enSPON_FON, enSPHT_LON = 0xFF };
+enum enToHook { enToHook_CTCH, enToHook_CRCH, enToHook_PTCH, enToHook_PRCH };
 
 
 /*! ---------------------------------------------------------
 @function block
 ----------------------------------------------------------*/
 
-static void vYmodemError(char* file, YUINT16_t num);
+void vYmodemInitialize(stcYmodemManage_t * const stcManage);
 
-void vYmodemInitialize(stcYmodemManage_t* stcYManage,
-					   YSINT8_t * const pRxBuf, 
-					   YSINT8_t * const pTxBuf,
-					   const YUINT16_t numBufSize);
+void vYmodemCommunReceive(stcYmodemManage_t * const stcYManage);
 
+void vYmodemCommunTransmit(stcYmodemManage_t * const stcYManage, 
+	                       stcYFI_t pFileInfo);
 
 
 #endif /* __YMODEM_H__ */

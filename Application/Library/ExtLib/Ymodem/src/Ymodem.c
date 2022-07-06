@@ -32,6 +32,7 @@
 extern "C" {
 #endif
 
+
 /*!
 *@brief£ºThis function is used to initialize the Ymodem module.
 *@param£º
@@ -40,32 +41,118 @@ extern "C" {
 	[numBufSize], Length of incoming data buffer.
 *@retval£ºNone
 */
-void vYmodemInitialize(stcYmodemManage_t * const stcYManage,
-					   YSINT8_t * const pRxBuf, 
-					   YSINT8_t * const pTxBuf,
-					   const YUINT16_t numBufSize)
+static size_t vYmedemReadData(YSINT8_t* pBuff, YUINT8_t numSize, void *pFile)
 {
-	vYmodemAssert(stcYManage != NULL);
-	vYmodemAssert((pRxBuf != NULL) && (pTxBuf != NULL));
-	vYmodemAssert(numBufSize >= Y_PACKET_MAX_SIZE);
+#if (defined(_MSC_VER) || defined(__GUNC__))
+	return fread(pBuff, numSize, Y_PACKET_DATA_MAX_SIZE, (FILE*)pFile);
+#endif
+	return 0;
+}
+
+
+/*!
+*@brief£ºThis function is used to initialize the Ymodem module.
+*@param£º
+	[pRxBuf], Entry data buffer pointer of Ymodem module.
+	[pTxBuf], Exit data buffer pointer of Ymodem module.
+	[numBufSize], Length of incoming data buffer.
+*@retval£ºNone
+*/
+static size_t vYmedemWriteData(YSINT8_t* pBuff, YUINT8_t numSize, void *pFile)
+{
+#if (defined(_MSC_VER) || defined(__GUNC__))
+	return fwrite(pBuff, numSize, Y_PACKET_DATA_MAX_SIZE, (FILE*)pFile);
+#endif
+	return 0;
+}
+
+
+/*!
+*@brief£ºThis function is called when there is an assertion error in the Ymodem module.
+*@param£º
+	[file], Error with error.
+	[num], The line number of the error.
+*@retval£ºNone
+*/
+static void vYmodemAssertCall(char *pFileName, YUINT16_t numFileLine)
+{
+#if (Y_DEBUG_ENABLE)
+	printf("Error:%s,%d\r\n", pFileName, numFileLine);
+#endif
+	for( ; ; );
+}
+
+
+/*!
+*@brief£ºThis function is used to initialize the Ymodem module.
+*@param£º
+    [stcYManage]£¬Ymodem manage object.
+*@retval£ºNone
+*/
+static void vYmodemHookBind(void * const pManage, 
+	                        void (*pCallback)(void*), 
+					        YUINT8_t numToHook)
+{
+	stcYmodemManage_t* pM = (stcYmodemManage_t*)pManage;
 	
-	stcYManage->stcState.numModel = 0;
-	stcYManage->stcState.numState = 0;
-	stcYManage->stcState.numSeek  = 0;
+	if (pCallback != NULL)
+	{
+		switch(numToHook)
+		{
+			case enToHook_CTCH:
+				pM->vCommumTxCompleteHook = pCallback;
+				break;
+			case enToHook_CRCH:
+				pM->vCommumRxCompleteHook = pCallback;
+				break;
+		#if (Y_MANAGE_PACKET_RTX_COMPLETE_HOOK)
+			case enToHook_PTCH:
+				pM->vPacketTxCompleteHook = pCallback;
+				break;
+			case enToHook_PRCH:
+			    pM->vPacketRxCompleteHook = pCallback;
+				break;
+		#endif
+			default:
+				break;
+		}
+	}
+}
+
+
+/*!
+*@brief£ºThis function is used to initialize the Ymodem module.
+*@param£º
+	[pRxBuf], Entry data buffer pointer of Ymodem module.
+	[pTxBuf], Exit data buffer pointer of Ymodem module.
+	[numBufSize], Length of incoming data buffer.
+*@retval£ºNone
+*/
+void vYmodemInitialize(stcYmodemManage_t * const stcManage)
+{
+	vYmodemAssert(stcManage != NULL);
 	
-	// rx
-	stcYManage->stcRxPacket.pPacketHeader = pRxBuf;
-	stcYManage->stcRxPacket.pPacketOrder = (pRxBuf + 1);
-	stcYManage->stcRxPacket.pPacketFirstBlock = (pRxBuf + 3);
-	stcYManage->stcRxPacket.pPacketDataBlock = (pRxBuf + Y_PACKET_BLOCK_MAX_SIZE + 3);
-	stcYManage->stcRxPacket.pCRCValue = (pRxBuf + numBufSize - 2);
-	
-	// tx
-	stcYManage->stcTxPacket.pPacketHeader = pTxBuf;
-	stcYManage->stcTxPacket.pPacketOrder = (pTxBuf + 1);
-	stcYManage->stcTxPacket.pPacketFirstBlock = (pTxBuf + 3);
-	stcYManage->stcTxPacket.pPacketDataBlock = (pTxBuf + Y_PACKET_BLOCK_MAX_SIZE + 3);
-	stcYManage->stcTxPacket.pCRCValue = (pTxBuf + numBufSize - 2);
+	stcManage->vHookBind = vYmodemHookBind;
+//	vYmodemAssert((pRxBuf != NULL) && (pTxBuf != NULL));
+//	vYmodemAssert(numBufSize >= Y_PACKET_MAX_SIZE);
+//	
+//	stcYManage->stcState.numModel = 0;
+//	stcYManage->stcState.numState = 0;
+//	stcYManage->stcState.numSeek  = 0;
+//	
+//	// rx
+//	stcYManage->stcRxPacket.pPacketHeader = pRxBuf;
+//	stcYManage->stcRxPacket.pPacketOrder = (pRxBuf + 1);
+//	stcYManage->stcRxPacket.pPacketFirstBlock = (pRxBuf + 3);
+//	stcYManage->stcRxPacket.pPacketDataBlock = (pRxBuf + Y_PACKET_BLOCK_MAX_SIZE + 3);
+//	stcYManage->stcRxPacket.pCRCValue = (pRxBuf + numBufSize - 2);
+//	
+//	// tx
+//	stcYManage->stcTxPacket.pPacketHeader = pTxBuf;
+//	stcYManage->stcTxPacket.pPacketOrder = (pTxBuf + 1);
+//	stcYManage->stcTxPacket.pPacketFirstBlock = (pTxBuf + 3);
+//	stcYManage->stcTxPacket.pPacketDataBlock = (pTxBuf + Y_PACKET_BLOCK_MAX_SIZE + 3);
+//	stcYManage->stcTxPacket.pCRCValue = (pTxBuf + numBufSize - 2);
 }
 
 
@@ -85,29 +172,13 @@ void vYmodemCommunReceive(stcYmodemManage_t * const stcYManage)
 *@brief£ºThis function is used to initialize the Ymodem module.
 *@param£º
     [stcYManage]£¬Ymodem manage object.
-	[pFile], File pointer of the file to be sent.
-	[strFileName], The file name of the to be sent.
+	[pFileInfo], File information object.
 *@retval£ºNone
 */
 void vYmodemCommunTransmit(stcYmodemManage_t * const stcYManage, 
-	                       FILE * const pFile, 
-						   YSINT8_t * const strFileName)
+	                       stcYFI_t pFileInfo)
 {
 	
-}
-
-
-/*!
-*@brief£ºThis function is called when there is an assertion error in the Ymodem module.
-*@param£º
-	[file], Error with error.
-	[num], The line number of the error.
-*@retval£ºNone
-*/
-static void vYmodemError(char *file, YUINT16_t num)
-{
-	printf("Error:%s,%d\r\n", file, num);
-	for( ; ; );
 }
 
 
